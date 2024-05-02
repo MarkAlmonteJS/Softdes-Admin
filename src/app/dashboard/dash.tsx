@@ -86,9 +86,9 @@ export default function Dash() {
 
       
 
-   <Link href="/Dashboard/AddDocument">
+   <Link href="/dashboard/product/add">
      
-       <Button className="ml-auto" size="sm">
+       <Button className="ml-auto" size="sm" >
          Add Products
        </Button>
      

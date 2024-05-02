@@ -5,6 +5,8 @@ import { firebasedb } from "../../../firebaseconfig";
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table, TableFooter } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { EditButton } from "./editbutton";
+import { doc, setDoc, deleteDoc} from 'firebase/firestore';
+
 
 // JSON Response from Invoice Table in a Database
 const invoices = [];
@@ -68,17 +70,37 @@ export function AdminTable() {
   };
 
   // Handle editing an invoice
-  const handleEdit = (updatedInvoice) => {
-    settableData(tableData.map(invoice =>
-      invoice.id === updatedInvoice.id? updatedInvoice : invoice
-    ));
-  };
+// In AdminTable component
+const handleEdit = (updatedInvoice, db) => {
+  // Update the local state
+  settableData(tableData.map(invoice =>
+    invoice.id === updatedInvoice.id? updatedInvoice : invoice
+  ));
 
-  // Handle deleting an invoice
+  // Update the document in Firestore
+  const docRef = doc(firebasedb , "Products", updatedInvoice.id);
+  setDoc(docRef, updatedInvoice, { merge: true })
+   .then(() => {
+      console.log("Document successfully updated!");
+    })
+   .catch((error) => {
+      console.error("Error updating document: ", error);
+    });
+};
+
   const handleDelete = (ID) => {
-    const updatedInvoices = tableData.filter(invoice => invoice.id!== ID);
-    settableData(updatedInvoices);
-  };
+  const docRef = doc(firebasedb, "Products", ID);
+  deleteDoc(docRef)
+   .then(() => {
+      console.log("Document successfully deleted!");
+      // Also removes the item from the local state
+      const updatedInvoices = tableData.filter(invoice => invoice.id!== ID);
+      settableData(updatedInvoices);
+    })
+   .catch((error) => {
+      console.error("Error removing document: ", error);
+    });
+};
 
   return (
     <div>
@@ -96,9 +118,6 @@ export function AdminTable() {
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TableCell>
-              <Button onClick={handleAddInvoice}>Add Product</Button>
-            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
