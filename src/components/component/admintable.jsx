@@ -6,6 +6,17 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table, TableFoo
 import { Button } from "@/components/ui/button";
 import { EditButton } from "./editbutton";
 import { doc, setDoc, deleteDoc} from 'firebase/firestore';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+ } from "@/components/ui/alert-dialog";
 
 
 // JSON Response from Invoice Table in a Database
@@ -63,7 +74,23 @@ export function AdminTable() {
           <EditButton onEdit={handleEdit} initialInvoice={invoice} />
         </TableCell>
         <TableCell>
-          <Button onClick={() => handleDelete(invoice.id)}>Delete</Button>
+          <AlertDialog>
+              <AlertDialogTrigger asChild>
+          <Button >Delete</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+                <AlertDialogHeader>
+                 <AlertDialogTitle>Confirm product deletion</AlertDialogTitle>
+                 <AlertDialogDescription>
+                    Are you sure you want to delete this item?
+                 </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                 <AlertDialogCancel>Cancel</AlertDialogCancel>
+                 <AlertDialogAction onClick={() => handleDelete(invoice.id)}>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+              </AlertDialog>
         </TableCell>
       </TableRow>
     ));
@@ -89,11 +116,12 @@ const handleEdit = (updatedInvoice, db) => {
 };
 
   const handleDelete = (ID) => {
+
   const docRef = doc(firebasedb, "Products", ID);
   deleteDoc(docRef)
    .then(() => {
       console.log("Document successfully deleted!");
-      // Also removes the item from the local state
+      // Also remove the item from the local state
       const updatedInvoices = tableData.filter(invoice => invoice.id!== ID);
       settableData(updatedInvoices);
     })
