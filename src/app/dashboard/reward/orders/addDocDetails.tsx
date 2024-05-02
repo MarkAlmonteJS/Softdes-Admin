@@ -6,17 +6,17 @@ import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import shoe from '../../../../../public/shoes.png'
+import adminlogo  from "../../../../../public/logo1.jpeg"
 import { Sidebar } from "@/components/component/sidebar"
 export default function Dash() {
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-[60px] items-center border-b px-6 bg-[#05445e]">
-          <Image alt="logo "src={shoe} height={50} style={{marginRight:10}}/>
+          <div className="flex h-[60px] items-center border-b px-6 bg-[#279486]">
+          <Image alt="logo "src={adminlogo} height={50} style={{marginRight:10}}/>
           <Link className="flex items-center font-semibold text-white" href="/dashboard">
-          <span className="">Step2Cash</span>
+          <span className="">Mikee's Curtain Admin</span>
           </Link>
 
       
@@ -28,7 +28,7 @@ export default function Dash() {
         </div>
       </div>
       <div className="flex flex-col">
-        <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-[#05445e] px-6 dark:bg-gray-800/40">
+        <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-[#279486] px-6 dark:bg-gray-800/40">
           
           <Link className="lg:hidden" href="#">
           
