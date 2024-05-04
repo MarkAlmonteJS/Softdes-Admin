@@ -5,7 +5,7 @@ import { firebasedb } from "../../../firebaseconfig";
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table, TableFooter } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { EditButton } from "./editbutton";
-import { doc, setDoc, deleteDoc} from 'firebase/firestore';
+import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,7 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
- } from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog";
 
 
 // JSON Response from Invoice Table in a Database
@@ -30,7 +30,7 @@ export function AdminTable() {
       try {
         const itemList = collection(firebasedb, "Products");
         const querySnapshot = await getDocs(itemList);
-        const fetchData = querySnapshot.docs.map(doc => ({ id: doc.id,...doc.data() }));
+        const fetchData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         settableData(fetchData);
       } catch (e) {
         console.error("Error getting documents: ", e);
@@ -52,7 +52,7 @@ export function AdminTable() {
 
   // Handle adding a new invoice
   const handleAddInvoice = () => {
-    const nextInvoiceId = generateRandomString(4); 
+    const nextInvoiceId = generateRandomString(4);
     const newInvoice = {
       ID: nextInvoiceId,
       paymentStatus: "Pending",
@@ -75,64 +75,65 @@ export function AdminTable() {
         </TableCell>
         <TableCell>
           <AlertDialog>
-              <AlertDialogTrigger asChild>
-          <Button >Delete</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-                <AlertDialogHeader>
-                 <AlertDialogTitle>Confirm product deletion</AlertDialogTitle>
-                 <AlertDialogDescription>
-                    Are you sure you want to delete this item?
-                 </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                 <AlertDialogAction onClick={() => handleDelete(invoice.id)}>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-              </AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button >Delete</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Confirm product deletion</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to delete this item?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={() => handleDelete(invoice.id)}>Continue</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </TableCell>
       </TableRow>
     ));
   };
 
   // Handle editing an invoice
-// In AdminTable component
-const handleEdit = (updatedInvoice, db) => {
-  // Update the local state
-  settableData(tableData.map(invoice =>
-    invoice.id === updatedInvoice.id? updatedInvoice : invoice
-  ));
+  // In AdminTable component
+  const handleEdit = (updatedInvoice, db) => {
+    // Update the local state
+    settableData(tableData.map(invoice =>
+      invoice.id === updatedInvoice.id ? updatedInvoice : invoice
+    ));
 
-  // Update the document in Firestore
-  const docRef = doc(firebasedb , "Products", updatedInvoice.id);
-  setDoc(docRef, updatedInvoice, { merge: true })
-   .then(() => {
-      console.log("Document successfully updated!");
-    })
-   .catch((error) => {
-      console.error("Error updating document: ", error);
-    });
-};
+    // Update the document in Firestore
+    const docRef = doc(firebasedb, "Products", updatedInvoice.id);
+    setDoc(docRef, updatedInvoice, { merge: true })
+      .then(() => {
+        console.log("Document successfully updated!");
+        alert("Product successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
 
   const handleDelete = (ID) => {
 
-  const docRef = doc(firebasedb, "Products", ID);
-  deleteDoc(docRef)
-   .then(() => {
-      console.log("Document successfully deleted!");
-      // Also remove the item from the local state
-      const updatedInvoices = tableData.filter(invoice => invoice.id!== ID);
-      settableData(updatedInvoices);
-    })
-   .catch((error) => {
-      console.error("Error removing document: ", error);
-    });
-};
+    const docRef = doc(firebasedb, "Products", ID);
+    deleteDoc(docRef)
+      .then(() => {
+        console.log("Document successfully deleted!");
+        // Also remove the item from the local state
+        const updatedInvoices = tableData.filter(invoice => invoice.id !== ID);
+        settableData(updatedInvoices);
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
 
   return (
     <div>
-      <Table>
+      <Table className="grid-table">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Product Name</TableHead>

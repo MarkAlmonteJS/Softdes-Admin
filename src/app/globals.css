@@ -84,3 +84,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+ .grid-table {
+    border-collapse: collapse;
+  }
+ .grid-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+;
