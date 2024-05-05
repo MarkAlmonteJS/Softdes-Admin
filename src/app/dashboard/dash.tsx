@@ -15,31 +15,31 @@ export default function Dash() {
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6 bg-[#279486]">
-          <Image alt="logo "src={adminlogo} height={50} style={{marginRight:10}}/>
-          <Link className="flex items-center font-semibold text-white" href="/dashboard">
-          <span className="">Mikee's Curtain Admin</span>
-          </Link>
+            <Image alt="logo " src={adminlogo} height={50} style={{ marginRight: 10 }} />
+            <Link className="flex items-center font-semibold text-white" href="/dashboard">
+              <span className="">Mikee's Curtain Admin</span>
+            </Link>
 
-      
+
           </div>
-       <Sidebar Tab="dashboard"/>
+          <Sidebar Tab="dashboard" />
           <div className="p-4">
-           
+
           </div>
         </div>
       </div>
       <div className="flex flex-col">
         <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-[#279486] px-6 dark:bg-gray-800/40">
-          
+
           <Link className="lg:hidden" href="#">
-          
+
             <span className="sr-only">Home</span>
           </Link>
           {/**TOP MENU */}
           <div className="w-full flex-1">
             <form>
               <div className="relative">
-         
+
                 <Input
                   className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
                   placeholder="Search Reward"
@@ -48,7 +48,7 @@ export default function Dash() {
               </div>
             </form>
           </div>
-                    {/**TOP MENU */}
+          {/**TOP MENU */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -83,21 +83,21 @@ export default function Dash() {
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
           <div className="">
             <h1 className="font-semibold text-lg md:text-2xl">Product List</h1>
+            <Link href="/dashboard/product/add">
 
-      
+              <Button className="ml-auto mr-2" size="sm" >
+                Add Products
+              </Button>
+            </Link>
+            <Link href="/dashboard/product/variety">
 
-   <Link href="/dashboard/product/add">
-     
-       <Button className="ml-auto" size="sm" >
-         Add Products
-       </Button>
-     
-   </Link>
-
-          
+              <Button className="ml-auto" size="sm" >
+                Add Variety
+              </Button>
+            </Link>
           </div>
           <div className="border shadow-sm rounded-lg">
-            <AdminTable/>
+            <AdminTable />
           </div>
         </main>
       </div>

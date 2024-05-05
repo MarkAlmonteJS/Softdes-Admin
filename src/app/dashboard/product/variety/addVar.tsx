@@ -37,7 +37,7 @@ interface Product {
 
 }
 
-export default function AddDoc() {
+export default function AddVar() {
 
 
   const [productdata, setproductdata] = useState<Product>({
@@ -97,7 +97,6 @@ export default function AddDoc() {
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'price' || name === 'stock') {
-      // Parse the value as a float to keep it as a number
       setproductdata(prevState => ({
         ...prevState,
         [name]: parseFloat(value),
@@ -218,7 +217,7 @@ export default function AddDoc() {
           <div className="container mx-auto space-y-4">
             <div className="flex items-center gap-2">
 
-              <h1 className="font-semibold text-lg md:text-2xl">Add Product</h1>
+              <h1 className="font-semibold text-lg md:text-2xl">Add Variety</h1>
             </div>
             <div className="grid gap-4">
               <form>
@@ -250,7 +249,7 @@ export default function AddDoc() {
 
                 <div className="grid gap-1">
                   <Label className="text-sm" htmlFor="price">
-                    Product Price
+                    Product Cost
                   </Label>
                   <Input
                     id="price"

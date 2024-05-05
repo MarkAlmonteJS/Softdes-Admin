@@ -2,7 +2,7 @@ import Link from "next/link";
 
 interface ISidebar {
     Tab: string;
-   }
+}
 export function Sidebar({ Tab }: ISidebar) {
     return (
         <div className="flex-1 overflow-auto py-2">
@@ -19,13 +19,13 @@ export function Sidebar({ Tab }: ISidebar) {
                 </Link>
                 <Link id="adddetails"
                     className={Tab === "adddetails" ? "flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50" : "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"}
-                    href="/dashboard/reward/orders">
-                    Orders
+                    href="/dashboard/product/variety">
+                    Add Variety
                 </Link>
                 <Link id="settings"
-                    className={Tab === "settings" ? "flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50" : "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"}  
+                    className={Tab === "settings" ? "flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50" : "flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"}
                     href="#">
-                    Settings
+                    Orders
                 </Link>
             </nav>
         </div>

@@ -88,7 +88,12 @@ export default function SigninAdmin() {
         <Button className="w-full" onClick={handleSubmit}>Sign In</Button>
       </div>
       <div className="text-center text-sm text-blue-500">
-
+        <p className="text-gray-500 dark:text-gray-400">
+          Don't have an admin account?
+          <Link className="underline" href="/signup">
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   )
