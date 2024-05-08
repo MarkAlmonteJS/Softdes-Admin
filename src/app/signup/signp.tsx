@@ -46,13 +46,10 @@ export function Signup() {
 
       // After successful registration, update the database
       const adminData = {
-        // Assuming adminData is an object containing user details to store in Firestore
-        // For example:
         name: admindata.name,
         email: admindata.email,
         last: admindata.last,
         type: 'Admin',
-        // Add other fields as necessary
       };
 
       // Define the collection
@@ -110,7 +107,7 @@ export function Signup() {
               id="name"
               placeholder="Enter your First name"
               value={admindata.name}
-              onChange={e => setadmindata({ ...admindata, name: e.target.value })} // Corrected line
+              onChange={e => setadmindata({ ...admindata, name: e.target.value })}
               type="text"
               required />
           </div>
@@ -120,7 +117,7 @@ export function Signup() {
               id="last"
               placeholder="Enter your Last name"
               value={admindata.last}
-              onChange={e => setadmindata({ ...admindata, last: e.target.value })} // Corrected line
+              onChange={e => setadmindata({ ...admindata, last: e.target.value })}
               type="text"
               required />
           </div>
@@ -130,7 +127,7 @@ export function Signup() {
               id="email"
               placeholder="Enter your Email"
               value={admindata.email}
-              onChange={e => setadmindata({ ...admindata, email: e.target.value })} // Corrected line
+              onChange={e => setadmindata({ ...admindata, email: e.target.value })}
               type="text"
               required />
           </div>
