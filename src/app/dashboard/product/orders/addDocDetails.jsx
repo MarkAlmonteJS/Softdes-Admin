@@ -10,19 +10,33 @@ import adminlogo from "../../../../../public/logo1.jpeg";
 import { Sidebar } from "@/components/component/sidebar";
 import { firebasedb } from "../../../../../firebaseconfig";
 import { useState, useEffect } from "react";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, updateDoc } from "firebase/firestore";
+import { EditOrder } from "../../../../components/component/editorders"
 
 
 
 
 export default function Ordertable() {
 
-  const staticLink = process.env.NEXT_PUBLIC_STATIC
-  const SP = process.env.NEXT_PUBLIC_SP1 || process.env.NEXT_PUBLIC_SP2
-  const main = process.env.NEXT_PUBLIC_MAIN
-  const MP = process.env.NEXT_PUBLIC_MP1 || process.env.NEXT_PUBLIC_MP2
-  const jwt = process.env.ADMIN_JWT
   const [transactions, setTransactions] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState({});
+
+  const handleStatusChange = async (transactionId, newStatus) => {
+    setSelectedStatuses(prev => ({ ...prev, [transactionId]: newStatus }));
+
+    // Call a function to update the Firebase database
+    await updateStatusInFirebase(transactionId, newStatus);
+  };
+
+  const updateStatusInFirebase = async (transactionId, newStatus) => {
+    try {
+      const docRef = doc(firebasedb, "Transaction", transactionId);
+      await updateDoc(docRef, { status: newStatus });
+      console.log(`Status updated for transaction ${transactionId}`);
+    } catch (error) {
+      console.error("Error updating status in Firebase:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -139,7 +153,7 @@ export default function Ordertable() {
                     <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
                     <TableCell>{transaction.status}</TableCell>
                     <TableCell className="flex gap-2">
-                      <Button>Edit Status</Button>
+                      <EditOrder status={selectedStatuses[transaction.id] || transaction.status} onStatusChange={(newStatus) => handleStatusChange(transaction.id, newStatus)} />
                       <Button>Delete</Button>
                     </TableCell>
                   </TableRow>
