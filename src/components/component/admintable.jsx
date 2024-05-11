@@ -96,8 +96,6 @@ export function AdminTable() {
     ));
   };
 
-  // Handle editing an invoice
-  // In AdminTable component
   const handleEdit = (updatedInvoice, db) => {
     // Update the local state
     settableData(tableData.map(invoice =>
